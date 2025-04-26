@@ -10,6 +10,8 @@ typedef struct {
     int area;
     int pib;
     int numeroDePontosTuristicos;
+    int densidadeDemografica;
+    int pibPerCapita;
 } Carta;
 
 int numeroDeCartas = 1;
@@ -39,6 +41,19 @@ void inicializaCartas(Carta* cartas[], int numeroDeCartas) {
 
         printf("Digite o número de pontos turísticos da carta %d: ", i + 0);
         scanf("%d", &cartas[i]->numeroDePontosTuristicos);
+
+        // Cálculo da densidade demográfica
+        if (cartas[i]->area != 0) {
+            cartas[i]->densidadeDemografica = cartas[i]->populacao / cartas[i]->area;
+        } else {
+            cartas[i]->densidadeDemografica = 0; // Evitar divisão por zero
+        }
+        // Cálculo do PIB per capita
+        if (cartas[i]->populacao != 0) {
+            cartas[i]->pibPerCapita = cartas[i]->pib / cartas[i]->populacao;
+        } else {
+            cartas[i]->pibPerCapita = 0; // Evitar divisão por zero
+        }
     }
 }
 
@@ -50,6 +65,8 @@ void imprimeCarta(Carta* carta) {
     printf("Área: %d km²\n", carta->area);
     printf("PIB: R$ %d\n", carta->pib);
     printf("Número de Pontos Turísticos: %d\n", carta->numeroDePontosTuristicos);
+    printf("Densidade Demográfica: %d habitantes/km²\n", carta->densidadeDemografica);
+    printf("PIB per Capita: R$ %d\n", carta->pibPerCapita);
 }
 
 int main() {
